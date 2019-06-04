@@ -42,9 +42,8 @@ const createSphere = (name, geometry, material, castShadow = false, receiveShado
 const pointSphere = createSphere("earth", [4, 32, 32], { color: 'blue' }, true, true, false)
 const lightSphere = createSphere("mini-sun", [3, 32, 32], { color: 'yellow' })
 const moonOfLightSphere = createSphere('moon', [1, 32, 32], { color: 'orange' }, true, true, false)
+const moonOfEarth = createSphere("mini", [2, 32, 32], { color: 'red' }, true, true, false)
 
-lightSphere.position.set(20, 3, 0)
-moonOfLightSphere.position.set(12, 0, 0)
 
 // plane
 const g = new THREE.BoxBufferGeometry(10, 0.15, 10);
@@ -53,28 +52,44 @@ const m = new THREE.MeshPhongMaterial({
 });
 
 const ground = new THREE.Mesh(g, m);
-ground.scale.multiplyScalar(4);
+ground.scale.multiplyScalar(5);
 ground.castShadow = false;
 ground.receiveShadow = true;
 ground.position.y = -5
 
-const light = new THREE.DirectionalLight('white', 1);
+const light = new THREE.PointLight('white', 1);
 light.castShadow = true;
-light.position.set(20, 3, 0);
 
-scene.add(light, lightSphere, pointSphere, ground, moonOfLightSphere);
+scene.add(light, lightSphere, pointSphere, ground, moonOfLightSphere, moonOfEarth);
 
 camera.position.z = 40
 camera.position.y = 4
 
-pointSphere.add(lightSphere, light)
-lightSphere.add(moonOfLightSphere)
+pointSphere.add(lightSphere, moonOfEarth)
+lightSphere.add(moonOfLightSphere, light)
 
 /** game logic */
 
 const update = () => {
-    pointSphere.rotation.y += 0.01
-    lightSphere.rotation.y += 0.03
+
+    const date = Date.now() * 0.0001;
+    moonOfLightSphere.position.set(
+        Math.cos(date * 20) * 6,
+        0,
+        Math.sin(date * 20) * 6
+    );
+
+    moonOfEarth.position.set(
+        Math.cos(date * 25) * 10,
+        0,
+        Math.sin(date * 25) * 10
+    );
+
+    lightSphere.position.set(
+        Math.cos(date * 10) * 20,
+        3,
+        Math.sin(date * 10) * 20
+    );
 }
 /** draw scene  */
 const render = () => {
