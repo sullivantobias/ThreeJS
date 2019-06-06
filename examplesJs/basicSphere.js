@@ -73,7 +73,7 @@ ground.receiveShadow = true;
 ground.position.y = -5
 
 /** generate light */
-const light = new THREE.PointLight('white', 1);
+const light = new THREE.PointLight('white', 1.2);
 light.castShadow = true;
 
 scene.add(light, lightSphere, pointSphere, ground, moonOfLightSphere, moonOfEarth)
@@ -82,7 +82,6 @@ scene.add(light, lightSphere, pointSphere, ground, moonOfLightSphere, moonOfEart
 pointSphere.add(lightSphere, moonOfEarth)
 lightSphere.add(moonOfLightSphere, light)
 
-/** camera settings */
 /**
  * @function rotateAroundObject
  * @description basic rotation based on the parent
@@ -107,7 +106,7 @@ const update = () => {
     rotateAroundObject(moonOfLightSphere, [date, 20, 6], [0, 0, 0], [date, 20, 6])
     rotateAroundObject(moonOfEarth, [date, 25, 10], [0, 0, 0], [date, 25, 10])
     rotateAroundObject(lightSphere, [date, 10, 20], [1, 1, 3], [date, 10, 20])
-    rotateAroundObject(camera, [date, 10, 36], [1, 1, 38], [date, 10, -15])
+    rotateAroundObject(camera, [date, 3, 36], [1, 1, 30], [date, 3, -36])
 
     camera.lookAt(pointSphere.position)
 }
