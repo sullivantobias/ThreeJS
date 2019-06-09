@@ -19,7 +19,7 @@ window.addEventListener('resize', () => {
     const h = window.innerHeight
 
     renderer.setSize(w, h)
-    
+
     /** camera */
     camera.aspect = w / h
     camera.updateProjectionMatrix()
@@ -51,6 +51,21 @@ const createSphere = (name, geometry, material, castShadow = false, receiveShado
     sphere.receiveShadow = receiveShadow
 
     return sphere
+}
+/**
+ * @function createOrbit
+ * @param {*} distance 
+ * @param {*} color 
+ */
+const createOrbit = (distance, color) => {
+    const geometry = new THREE.CircleGeometry(distance, 256);
+    geometry.vertices.shift();
+    geometry.rotateX(-Math.PI / 2);
+
+    const material = new THREE.LineBasicMaterial({ color: color });
+    const mesh = new THREE.Line(geometry, material);
+
+    return mesh
 }
 
 /** generate all the spheres */
@@ -90,7 +105,7 @@ lightSphere.add(moonOfLightSphere, light)
  * @param {Array} param2 
  * @param {Array} param3 
  */
-const rotateAroundObject =  (obj, [...x], [...y], [...z]) => {
+const rotateAroundObject = (obj, [...x], [...y], [...z]) => {
     obj.position.set(
         Math.cos(x[0] * x[1]) * x[2],
         Math.sin(y[0] * y[1]) * y[2],
@@ -98,11 +113,24 @@ const rotateAroundObject =  (obj, [...x], [...y], [...z]) => {
     );
 }
 
+/** create orbit  */
+const lightSphereOrb = createOrbit(20, 'yellow');
+const moonOfEarthOrb = createOrbit(10, 'red');
+const moonOfLightSphereOrb = createOrbit(6, 'orange');
+
+lightSphereOrb.position.y = 3
+scene.add(lightSphereOrb, moonOfEarthOrb, moonOfLightSphereOrb)
+
+/** add parents  */
+pointSphere.add(lightSphereOrb, moonOfEarthOrb)
+lightSphere.add(moonOfLightSphereOrb)
+
 /**
  * repeat
  */
 const update = () => {
     const date = Date.now() * 0.0001;
+
     rotateAroundObject(moonOfLightSphere, [date, 20, 6], [0, 0, 0], [date, 20, 6])
     rotateAroundObject(moonOfEarth, [date, 25, 10], [0, 0, 0], [date, 25, 10])
     rotateAroundObject(lightSphere, [date, 10, 20], [1, 1, 3], [date, 10, 20])
