@@ -5,7 +5,7 @@ const express = require("express"),
 // Express Middleware for serving static files
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/basic-shape", (req, res) => {
+app.get("/", (req, res) => {
   res.redirect("/examples/basicCube.html");
 })
 .get("/solar-system", (req, res) => {

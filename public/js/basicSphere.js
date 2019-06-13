@@ -49,7 +49,7 @@ const createSphere = (name, geometry, material, castShadow = false, receiveShado
     /** set shadow */
     sphere.castShadow = castShadow;
     sphere.receiveShadow = receiveShadow
-
+    
     return sphere
 }
 /**
@@ -61,7 +61,6 @@ const createOrbit = (distance, color) => {
     const geometry = new THREE.CircleGeometry(distance, 256);
     geometry.vertices.shift();
     geometry.rotateX(-Math.PI / 2);
-
     const material = new THREE.LineBasicMaterial({ color: color });
     const mesh = new THREE.Line(geometry, material);
 
