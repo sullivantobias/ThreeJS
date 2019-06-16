@@ -10,8 +10,16 @@ const PLANETS = {
         size: 2.5,
         segments: 32,
         orbSpeed: 4.7 * 2,
-        distFromSun: 58,
+        distFromSun: 58 * 3,
         texture: '../textures/mercury_texture.jpg'
+    },
+    Venus: {
+        name: "Venus",
+        size: 6,
+        segments: 32,
+        orbSpeed: 3.5 * 2,
+        distFromSun: 108 * 3,
+        texture: '../textures/venus_texture.jpg'
     }
 }
 
