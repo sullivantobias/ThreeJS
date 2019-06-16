@@ -6,13 +6,7 @@ const express = require("express"),
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.redirect("/examples/basicCube.html");
-})
-.get("/solar-system", (req, res) => {
-    res.redirect("/examples/solarSystem.html");
-})
-.get("/basic-sphere", (req, res) => {
-    res.redirect("/examples/basicSphere.html");
+  res.redirect("/examples/solarSystem.html");
 })
 
 app.listen(8080);

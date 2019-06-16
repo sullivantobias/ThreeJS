@@ -1,8 +1,7 @@
 {
-  "name": "examples",
+  "name": "solar-system",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Solar System using threeJs",
   "scripts": {
     "start": "node app.js"
   },

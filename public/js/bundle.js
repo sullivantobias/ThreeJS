@@ -93,7 +93,7 @@ window.addEventListener("resize", () => {
 });
 
 document.body.appendChild(renderer.domElement);
-const mercuryOrb = createOrbit(58 + 696, 'grey')
+
 
 let planets = [];
 for (const planet in PLANETS) {
@@ -104,12 +104,19 @@ for (const planet in PLANETS) {
             currentPlanet.name,
             [currentPlanet.size, currentPlanet.segments, currentPlanet.segments],
             { map: texture });
+
+        if (currentPlanet.name !== 'Sun') {
+            const planetOrbit = createOrbit(
+                currentPlanet.distFromSun +
+                PLANETS.Sun.size, 'red'
+            )
+            scene.add(planetOrbit)
+        }
         planets.push({ planet: currentPlanet, object })
+
         scene.add(object)
     }
 }
-
-scene.add(mercuryOrb)
 
 camera.position.z = 1300;
 
@@ -121,6 +128,7 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
  */
 const update = () => {
     const date = Date.now() * 0.0001;
+
     for (let i = 0; i < planets.length; i++) {
         const p = planets[i];
         if (p.object.name !== 'Sun') {
@@ -133,7 +141,6 @@ const update = () => {
     }
 };
 
-console.log(planets)
 /**
  * draw scene
  */

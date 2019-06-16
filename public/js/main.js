@@ -39,7 +39,7 @@ window.addEventListener("resize", () => {
 });
 
 document.body.appendChild(renderer.domElement);
-const mercuryOrb = createOrbit(58 + 696, 'grey')
+
 
 let planets = [];
 for (const planet in PLANETS) {
@@ -50,12 +50,19 @@ for (const planet in PLANETS) {
             currentPlanet.name,
             [currentPlanet.size, currentPlanet.segments, currentPlanet.segments],
             { map: texture });
+
+        if (currentPlanet.name !== 'Sun') {
+            const planetOrbit = createOrbit(
+                currentPlanet.distFromSun +
+                PLANETS.Sun.size, 'red'
+            )
+            scene.add(planetOrbit)
+        }
         planets.push({ planet: currentPlanet, object })
+
         scene.add(object)
     }
 }
-
-scene.add(mercuryOrb)
 
 camera.position.z = 1300;
 
