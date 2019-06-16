@@ -9,7 +9,7 @@ const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     0.1,
-    10000
+    40000
 );
 
 /** load background texture */
@@ -68,7 +68,7 @@ for (const planet in PLANETS) {
 }
 
 /** set the camera position on the Z axis */
-camera.position.z = 1300;
+camera.position.z = 4000;
 
 // set orbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -81,13 +81,13 @@ const update = () => {
     /** make the planets move around the sun */
     for (let i = 0; i < planets.length; i++) {
         const p = planets[i];
-        /*if (p.object.name !== 'Sun') {
+        if (p.object.name !== 'Sun') {
             rotateAroundObject(
                 p.object,
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size],
                 [0, 0, 0],
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size])
-    }*/
+        }
     }
 };
 

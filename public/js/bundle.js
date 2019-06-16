@@ -63,7 +63,7 @@ const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     0.1,
-    10000
+    40000
 );
 
 /** load background texture */
@@ -122,7 +122,7 @@ for (const planet in PLANETS) {
 }
 
 /** set the camera position on the Z axis */
-camera.position.z = 1300;
+camera.position.z = 4000;
 
 // set orbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -135,13 +135,13 @@ const update = () => {
     /** make the planets move around the sun */
     for (let i = 0; i < planets.length; i++) {
         const p = planets[i];
-        /*if (p.object.name !== 'Sun') {
+        if (p.object.name !== 'Sun') {
             rotateAroundObject(
                 p.object,
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size],
                 [0, 0, 0],
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size])
-    }*/
+        }
     }
 };
 
@@ -204,6 +204,38 @@ const PLANETS = {
         orbSpeed: 2.4 * 2,
         distFromSun: 228 * 3,
         texture: '../textures/mars_texture.jpg'
+    },
+    Jupiter: {
+        name: "Jupiter",
+        size: 71,
+        segments: 32,
+        orbSpeed: 1.3 * 2,
+        distFromSun: 778 * 3,
+        texture: '../textures/jupiter_texture.jpg'
+    },
+    Saturn: {
+        name: "Saturn",
+        size: 60,
+        segments: 32,
+        orbSpeed: 0.96 * 2,
+        distFromSun: 1427 * 3,
+        texture: '../textures/saturn_texture.jpg'
+    },
+    Uranus: {
+        name: "Uranus",
+        size: 25.5,
+        segments: 32,
+        orbSpeed: 0.68 * 2,
+        distFromSun: 2871 * 3,
+        texture: '../textures/uranus_texture.jpg'
+    },
+    Neptune: {
+        name: "Neptune",
+        size: 24.7,
+        segments: 32,
+        orbSpeed: 0.54 * 2,
+        distFromSun: 4498 * 3,
+        texture: '../textures/neptune_texture.jpg'
     },
 }
 
