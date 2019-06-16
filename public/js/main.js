@@ -3,6 +3,7 @@ const { createOrbit } = require('./createOrbit')
 const { rotateAroundObject } = require('./rotateAroundObject')
 const { PLANETS } = require('./planetsList')
 
+/** setup scene and camera  */
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -11,8 +12,10 @@ const camera = new THREE.PerspectiveCamera(
     10000
 );
 
+/** load background texture */
 const starTexture = new THREE.TextureLoader().load("../textures/background_texture.jpg");
 
+/** setup renderer */
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 scene.background = starTexture
 renderer.shadowMap.enabled = true;
@@ -40,7 +43,7 @@ window.addEventListener("resize", () => {
 
 document.body.appendChild(renderer.domElement);
 
-
+/** create planets and orbit based on planetList */
 let planets = [];
 for (const planet in PLANETS) {
     if (PLANETS.hasOwnProperty(planet)) {
@@ -64,9 +67,10 @@ for (const planet in PLANETS) {
     }
 }
 
+/** set the camera position on the Z axis */
 camera.position.z = 1300;
 
-// set controls
+// set orbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 /**
@@ -74,16 +78,16 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
  */
 const update = () => {
     const date = Date.now() * 0.0001;
-
+    /** make the planets move around the sun */
     for (let i = 0; i < planets.length; i++) {
         const p = planets[i];
-        if (p.object.name !== 'Sun') {
+        /*if (p.object.name !== 'Sun') {
             rotateAroundObject(
                 p.object,
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size],
                 [0, 0, 0],
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size])
-        }
+    }*/
     }
 };
 
