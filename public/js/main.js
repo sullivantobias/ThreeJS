@@ -53,7 +53,10 @@ for (const planet in PLANETS) {
         const object = createPlanet(
             currentPlanet.name,
             [currentPlanet.size, currentPlanet.segments, currentPlanet.segments],
-            { map: texture }, true, true, false);
+            { map: texture }, currentPlanet.isBasic,
+            currentPlanet.isBasic,
+            currentPlanet.isBasic
+        );
 
         if (currentPlanet.name !== 'Sun') {
             const planetOrbit = createOrbit(
@@ -92,6 +95,8 @@ const update = () => {
                 [0, 0, 0],
                 [date, p.planet.orbSpeed, p.planet.distFromSun + PLANETS.Sun.size])
         }
+
+        p.object.rotation.y += p.planet.rotationSpeed
     }
 };
 
