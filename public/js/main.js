@@ -2,6 +2,7 @@ const { createPlanet } = require('./createPlanet')
 const { createOrbit } = require('./createOrbit')
 const { rotateAroundObject } = require('./rotateAroundObject')
 const { PLANETS } = require('./planetsList')
+const { createLight } = require('./createLight')
 
 /** setup scene and camera  */
 const scene = new THREE.Scene();
@@ -52,7 +53,7 @@ for (const planet in PLANETS) {
         const object = createPlanet(
             currentPlanet.name,
             [currentPlanet.size, currentPlanet.segments, currentPlanet.segments],
-            { map: texture });
+            { map: texture }, true, true, false);
 
         if (currentPlanet.name !== 'Sun') {
             const planetOrbit = createOrbit(
@@ -66,6 +67,9 @@ for (const planet in PLANETS) {
         scene.add(object)
     }
 }
+
+const light = createLight('white', 1)
+scene.add(light)
 
 /** set the camera position on the Z axis */
 camera.position.z = 4000;

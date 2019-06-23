@@ -1,4 +1,12 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const createLight = (color, intensity, distance) => {
+    const light = new THREE.PointLight(color, intensity, distance);
+
+    return light;
+}
+
+module.exports.createLight = createLight;
+},{}],2:[function(require,module,exports){
 
 /**
  * @function createOrbit
@@ -16,7 +24,7 @@ const createOrbit = (distance, color) => {
 }
 
 module.exports.createOrbit = createOrbit
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /**
  * @function createPlanet
  * @description draw the planet based on parameters
@@ -51,11 +59,12 @@ const createPlanet = (
 };
 
 module.exports.createPlanet = createPlanet
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 const { createPlanet } = require('./createPlanet')
 const { createOrbit } = require('./createOrbit')
 const { rotateAroundObject } = require('./rotateAroundObject')
 const { PLANETS } = require('./planetsList')
+const { createLight } = require('./createLight')
 
 /** setup scene and camera  */
 const scene = new THREE.Scene();
@@ -106,7 +115,7 @@ for (const planet in PLANETS) {
         const object = createPlanet(
             currentPlanet.name,
             [currentPlanet.size, currentPlanet.segments, currentPlanet.segments],
-            { map: texture });
+            { map: texture }, true, true, false);
 
         if (currentPlanet.name !== 'Sun') {
             const planetOrbit = createOrbit(
@@ -120,6 +129,9 @@ for (const planet in PLANETS) {
         scene.add(object)
     }
 }
+
+const light = createLight('white', 1)
+scene.add(light)
 
 /** set the camera position on the Z axis */
 camera.position.z = 4000;
@@ -165,7 +177,7 @@ const GameLoop = () => {
  * run
  */
 GameLoop();
-},{"./createOrbit":1,"./createPlanet":2,"./planetsList":4,"./rotateAroundObject":5}],4:[function(require,module,exports){
+},{"./createLight":1,"./createOrbit":2,"./createPlanet":3,"./planetsList":5,"./rotateAroundObject":6}],5:[function(require,module,exports){
 const PLANETS = {
     Sun: {
         name: "Sun",
@@ -240,7 +252,7 @@ const PLANETS = {
 }
 
 module.exports.PLANETS = PLANETS
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 /**
  * @function rotateAroundObject
@@ -259,4 +271,4 @@ const rotateAroundObject = (obj, [...x], [...y], [...z]) => {
 }
 
 module.exports.rotateAroundObject = rotateAroundObject
-},{}]},{},[3]);
+},{}]},{},[4]);
