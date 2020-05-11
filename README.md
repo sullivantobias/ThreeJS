@@ -2,6 +2,8 @@
 
 Release 1.0.0
 
-cd <folder>
-yarn
-yarn start
+cd "folder"
+<br>
+yarn (install deps)
+<br>
+yarn start (run serv)
